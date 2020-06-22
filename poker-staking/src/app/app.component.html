@@ -1,0 +1,24 @@
+<ion-app>
+  <ion-menu side="start" menuId="m1" contentId="content" type="overlay">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button class="menubutton"></ion-menu-button>
+        </ion-buttons>
+        <ion-text ><h3>Home</h3></ion-text>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content main>
+      <ion-list style="padding-top: 0%;">
+        <ion-menu-toggle auto-hide=false>
+          <ion-item *ngFor="let p of pages" lines="none" [routerLink]="p.link"  class="menuitem" (click)="openPage(p)" 
+          [class.selected-item]= "checkActive(p)">
+            <ion-icon [name]="p.icon" slot="start" class="menuicon"></ion-icon>
+            <ion-label class="menulabel">{{p.title}}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet  id="content" main></ion-router-outlet>
+</ion-app>

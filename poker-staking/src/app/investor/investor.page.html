@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar style="--background: rgb(121, 163, 253);">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1" class="menubutton"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Poker-Staking</ion-title>
+    <ion-button slot="end" color="light" *ngIf="investor">
+      <ion-icon name="wallet-outline"></ion-icon>
+      &nbsp;&nbsp;{{investor.walletBalance | currency:'INR':'symbol':'3.2-2'}}
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <h1>Welcome {{investor.name}}</h1> -->
+  <ion-segment [(ngModel)]="segmentModel">
+    <ion-segment-button value="s1">
+      <ion-label>By player</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="s2">
+      <ion-label>By tournament</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="segmentModel === 's1'">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let palyer of players">
+          <ion-card>
+
+            <ion-card-header>
+              <!-- <ion-item>
+                <ion-avatar slot="start">
+                  <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                </ion-avatar>
+              </ion-item> -->
+              <ion-card-title>{{palyer.name}}</ion-card-title>
+              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+              Keep close to Nature's heart... and break clear away, once in awhile,
+              and climb a mountain or spend a week in the woods. Wash your spirit clean.
+            </ion-card-content>
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="segmentModel === 's2'">
+    <!-- <ion-item button detail (click)="buttonClick()" *ngFor="let item of tournaments">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2">
+            <ion-label>{{item.platform}}</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label>{{item.tName}}</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label>{{item.buyIn}}</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label>{{item.stakeAvailable}}</ion-label>
+          </ion-col>
+          <ion-col size="1" >
+            <div class="markUp">{{item.markUp}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item> -->
+
+    <mat-form-field style="width: 100%;">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Spartan Poker">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort matSortActive="stakeAvailable" matSortDirection="desc" style="width: 100%;">
+
+        <ng-container matColumnDef="platform">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Platform </th>
+          <td mat-cell *matCellDef="let row"> {{row.platform}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Player </th>
+          <td mat-cell *matCellDef="let row"> {{row.pName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tournament </th>
+          <td mat-cell *matCellDef="let row"> {{row.tName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="buyIn">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Buy In </th>
+          <td mat-cell *matCellDef="let row"> {{row.buyIn | currency:'INR':'symbol':'3.0-0'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="markUp">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Mark Up </th>
+          <td mat-cell *matCellDef="let row"> {{row.markUp}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="stakeAvailable">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Stake Available </th>
+          <td mat-cell *matCellDef="let row">
+              {{row.stakeAvailable}}%
+              <mat-progress-bar [color]="color(row.stakeAvailable)" value="{{100-row.stakeAvailable}}" style="width: 80%; padding-top: 1px;"></mat-progress-bar>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef >Action</th>
+          <td mat-cell *matCellDef="let row">
+            <div *ngIf="row.stakeAvailable!=0; else soldOutBlock">
+              <ion-button color="primary" fill="outline" (click)="getRecord(row)">
+                <ion-icon name="cart-outline"></ion-icon> &nbsp; Add to Cart
+              </ion-button>
+            </div>
+            <ng-template #soldOutBlock>
+              <img src="https://en.pimg.jp/057/275/444/1/57275444.jpg" height="40px" width="100&">
+            </ng-template>
+          
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="tableRow"></tr>
+        <mat-progress-bar color="warn" value="40"></mat-progress-bar>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "poker-staking",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      Place Order
+    </ion-title>
+    <ion-button slot="end" fill="clear" color="dark" size="large" (click)="onClose()">
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-avatar slot="end">
+            <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" alt="">
+          </ion-avatar>
+          <ion-label>{{data.pName}}</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-avatar slot="end">
+            <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" alt="">
+          </ion-avatar>
+          <ion-label>{{data.platform}}</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-toolbar>
+        <ion-title class="ion-text-center">
+          {{data.tName}}
+        </ion-title>
+      </ion-toolbar>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        Buy IN - {{data.buyIn}}
+      </ion-col>
+      <ion-col size="6">
+        Value - {{value}}
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding-top: 20px;">
+      <ion-col size="5">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Percentage</mat-label>
+          <input matInput placeholder="Max {{max}}" [(ngModel)]="value" (keyup)="calculate()">
+        </mat-form-field>
+      </ion-col>
+      <ion-col size="7">
+        0 &nbsp;
+        <mat-slider [max]="max" [min]="min" [step]="step" [thumbLabel]="thumbLabel" [tickInterval]="tickInterval"
+          [(ngModel)]="value" (change)="calculate()" style="width: 80%;">
+        </mat-slider>
+        &nbsp;{{max}} &nbsp;
+      </ion-col>
+    </ion-row>
+    <ion-list>
+      <ion-item>
+        <ion-label>Stake ({{value}} %)</ion-label>
+        <div slot="end"></div>
+        {{stake | currency:'INR':'symbol':'2.0-0'}}
+      </ion-item>
+      <ion-item>
+        <ion-label>Mark Up ({{data.markUp}} %)</ion-label>
+        <div slot="end"></div>
+        {{markUp | currency:'INR':'symbol':'2.0-0'}}
+      </ion-item>
+      <ion-item>
+        <ion-label>Gateway Charges (2%)</ion-label>
+        <div slot="end"></div>
+        {{gatewayCharges | currency:'INR':'symbol':'2.0-0'}}
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Total - {{total | currency:'INR':'symbol':'2.0-0'}}</ion-title>
+    <ion-button slot="end" color="primary" (click)="onPurchase()">
+      Buy
+    </ion-button>
+    <ion-button slot="end" color="light" (click)="onClose()">
+      Cancel
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

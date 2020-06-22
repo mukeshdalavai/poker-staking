@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Login to Poker-Staking</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="padding-top: 5%; padding-left: 20%;">
+    <mat-form-field appearance="outline" style="width: 70%;">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="example@abc.com" [(ngModel)]="username">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" style="width: 70%;">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="**********" [(ngModel)]="password" type="password">
+    </mat-form-field>
+    <ion-row>
+      <ion-button fill='outline' color="primary" (click)="login()">
+        <ion-icon name="log-in-outline"></ion-icon> &nbsp; Login
+      </ion-button>
+      &nbsp;&nbsp;&nbsp;
+      <ion-button fill='outline' color='dark' (click)="dismiss()">
+        <ion-label>Cancel</ion-label>
+      </ion-button>
+    </ion-row>
+  </div>
+</ion-content>

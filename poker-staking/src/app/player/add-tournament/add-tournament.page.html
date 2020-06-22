@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center">
+    <ion-title>New Tournament</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding">
+    <form [formGroup]="formInputFields">
+    <ion-row>
+      <ion-col size=8 offset=2>
+        <ion-item >
+          <ion-label position="floating">Platform</ion-label>
+          <ion-input formControlName="platform"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.platform">
+          <ng-container *ngIf="this.formInputFields.controls.platform.hasError(error.type) && (this.formInputFields.controls.platform.dirty || this.formInputFields.controls.platform.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size=8 offset=2>
+        <ion-item>
+          <ion-label position="floating">Tournament Name</ion-label>
+          <ion-input formControlName="tName"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.tName">
+          <ng-container *ngIf="this.formInputFields.controls.tName.hasError(error.type) && (this.formInputFields.controls.tName.dirty || this.formInputFields.controls.tName.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size=8 offset=2>
+        <ion-item >
+          <ion-label position="floating">Buy In</ion-label>
+          <ion-input formControlName="buyIn"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.buyIn">
+          <ng-container *ngIf="this.formInputFields.controls.buyIn.hasError(error.type) && (this.formInputFields.controls.buyIn.dirty || this.formInputFields.controls.buyIn.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size=8 offset=2>
+        <ion-item >
+          <ion-label position="floating">Mark Up</ion-label>
+          <ion-input formControlName="markUp"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.markUp">
+          <ng-container *ngIf="this.formInputFields.controls.markUp.hasError(error.type) && (this.formInputFields.controls.markUp.dirty || this.formInputFields.controls.markUp.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size=8 offset=2>
+        <ion-item >
+          <ion-label position="floating">Proposed Stake</ion-label>
+          <ion-input formControlName="stakeAvailable"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.stakeAvailable">
+          <ng-container *ngIf="this.formInputFields.controls.stakeAvailable.hasError(error.type) && (this.formInputFields.controls.stakeAvailable.dirty || this.formInputFields.controls.stakeAvailable.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col>
+        <ion-button (click)="onClose()" class="ion-text-capitalize ion-margin" >
+            Cancel
+        </ion-button>
+      
+        <ion-button (click) = "submit()" class="ion-text-capitalize ion-margin" >
+            Submit
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    </form>
+  </ion-grid>
+  
+
+</ion-content>

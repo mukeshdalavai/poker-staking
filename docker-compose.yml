@@ -1,0 +1,55 @@
+version: '2.2'
+
+services:
+
+  # app-ui:
+  #   image: dmk0062/media-storage-ui:2.0
+  #   # build: ./ui
+  #   restart: always
+  #   ports:
+  #     - 80:80
+
+  auth-service:
+    image: auth-service:1.0
+    build: ./auth-service
+    container_name: auth-service
+    depends_on:
+      - mongo
+    ports:
+      - 8080:8080
+
+  player-service:
+    image: player-service:1.0
+    build: ./player-service
+    container_name: player-service
+    depends_on:
+      - mongo
+    ports:
+      - 8070:8070
+
+  investor-service:
+    image: investor-service:1.0
+    build: ./investor-service
+    container_name: investor-service
+    depends_on:
+      - mongo
+    ports:
+      - 8060:8060
+
+  mongo:
+    image: mongo:4.0
+    restart: always
+    container_name: mongo
+#    network_mode: host
+#    hostname: localhost
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    depends_on :
+      - mongo
+    ports:
+      - 8081:8081
+    
